@@ -1,24 +1,27 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import Articles from "./components/Articles";
+import User from "./components/User";
+import { Theme } from "./types/types";
 
 function App() {
+  const [themeState, setThemeState] = useState<Theme>("light");
+  const toggleTheme = () => {
+    if (themeState === "light") setThemeState("dark");
+    if (themeState === "dark") setThemeState("light");
+  };
+  const classes = `App ${themeState}`;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+    <div className={classes}>
+      <header>
+        <h1>Typescript Skeletons</h1>
+        <button onClick={toggleTheme}>{themeState} </button>
       </header>
+      <div className="content">
+        <Articles theme={themeState} />
+        <User theme={themeState} />
+      </div>
     </div>
   );
 }
